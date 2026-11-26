@@ -1,7 +1,7 @@
 {
   "name": "Smart Tools",
   "short_name": "Smart Tools",
-  "description": "Free all-in-one file and utility tools",
+  "description": "Use Smart. Be Smart.",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
