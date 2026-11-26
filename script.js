@@ -189,55 +189,48 @@ function readImage(file){
 
 // QR CODE GENERATOR
 
-let generatedQRCanvas=null;
+let generatedQRCanvas = null;
 
-async function generateQR(){
+function generateQR(){
 
-  const text=document.getElementById("qrText").value.trim();
+  const text = document.getElementById("qrText").value.trim();
+  const result = document.getElementById("qrResult");
+  const status = document.getElementById("qrMessage");
+  const download = document.getElementById("downloadQR");
 
-  const result=document.getElementById("qrResult");
-  const status=document.getElementById("qrMessage");
-  const download=document.getElementById("downloadQR");
-
-  result.innerHTML="";
-  status.textContent="";
-  download.disabled=true;
-  generatedQRCanvas=null;
+  result.innerHTML = "";
+  status.textContent = "";
+  download.disabled = true;
+  generatedQRCanvas = null;
 
   if(!text){
-    status.textContent="Please enter text or a URL first.";
+    status.textContent = "Please enter text or a URL first.";
     return;
   }
 
-  if(!window.QRCode || !QRCode.toCanvas){
-    status.textContent="QR library failed to load. Check internet connection.";
+  if(typeof QRCode === "undefined"){
+    status.textContent = "QR library failed to load. Check internet connection.";
     return;
   }
 
   try{
 
-    const canvas=document.createElement("canvas");
-
-    await QRCode.toCanvas(canvas,text,{
-      width:260,
-      margin:2,
-      errorCorrectionLevel:"M",
-      color:{
-        dark:"#000000",
-        light:"#ffffff"
-      }
+    new QRCode(result, {
+      text: text,
+      width: 260,
+      height: 260,
+      colorDark: "#000000",
+      colorLight: "#ffffff",
+      correctLevel: QRCode.CorrectLevel.M
     });
 
-    result.appendChild(canvas);
-
-    generatedQRCanvas=canvas;
-    download.disabled=false;
-
-    status.textContent="QR code generated successfully!";
+    status.textContent = "QR code generated successfully!";
+    download.disabled = false;
 
   }catch(error){
 
-    status.textContent="Unable to create QR code. Try shorter text.";
+    result.innerHTML = "";
+    status.textContent = "Unable to create QR code.";
 
   }
 
@@ -245,13 +238,28 @@ async function generateQR(){
 
 function downloadQR(){
 
-  if(!generatedQRCanvas)return;
+  const result = document.getElementById("qrResult");
+  const canvas = result.querySelector("canvas");
+  const img = result.querySelector("img");
 
-  const link=document.createElement("a");
+  let imageData = null;
 
-  link.download="Smart-Tools-QR.png";
-  link.href=generatedQRCanvas.toDataURL("image/png");
+  if(canvas){
+    imageData = canvas.toDataURL("image/png");
+  }else if(img && img.src){
+    imageData = img.src;
+  }
 
+  if(!imageData){
+    document.getElementById("qrMessage").textContent =
+      "QR code is not ready to download.";
+    return;
+  }
+
+  const link = document.createElement("a");
+
+  link.download = "Smart-Tools-QR.png";
+  link.href = imageData;
   link.click();
 
 }
