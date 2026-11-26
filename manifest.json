@@ -1,0 +1,11 @@
+{
+  "name": "Smart Tools",
+  "short_name": "Smart Tools",
+  "description": "Free all-in-one file and utility tools",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "theme_color": "#16a34a",
+  "background_color": "#f4f7f8"
+}
