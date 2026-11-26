@@ -1,0 +1,383 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#16a34a">
+<title>Smart Tools</title>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+ --bg:#f4f7f8;--card:#ffffff;--text:#17202a;
+ --muted:#6b7280;--accent:#16a34a;--border:#e5e7eb;
+}
+body.dark{
+ --bg:#101716;--card:#1b2422;--text:#f1f5f4;
+ --muted:#9ca3af;--border:#303a37;
+}
+body{
+ background:var(--bg);color:var(--text);
+ font-family:Arial,sans-serif;transition:.25s;
+}
+header{
+ padding:22px 18px 18px;
+ display:flex;justify-content:space-between;align-items:center;
+}
+.logo{font-size:24px;font-weight:800}
+.logo span{color:var(--accent)}
+.theme{
+ border:1px solid var(--border);background:var(--card);
+ color:var(--text);padding:10px 14px;border-radius:12px;
+}
+.container{max-width:850px;margin:auto;padding:0 16px 30px}
+.hero{
+ background:linear-gradient(135deg,#16a34a,#087f5b);
+ color:white;border-radius:22px;padding:25px 22px;
+ margin-bottom:22px;
+}
+.hero h1{font-size:26px;margin-bottom:10px}
+.hero p{font-size:14px;line-height:1.6;opacity:.95}
+.section-title{font-size:18px;margin:20px 0 14px}
+.grid{
+ display:grid;grid-template-columns:repeat(2,1fr);gap:13px;
+}
+.tool{
+ background:var(--card);border:1px solid var(--border);
+ border-radius:18px;padding:18px 14px;
+ cursor:pointer;transition:.2s;min-height:135px;
+}
+.tool:active{transform:scale(.97)}
+.tool-icon{
+ width:46px;height:46px;border-radius:14px;
+ display:grid;place-items:center;font-size:23px;
+ background:#dcfce7;margin-bottom:13px;
+}
+body.dark .tool-icon{background:#183c2b}
+.tool h3{font-size:15px;margin-bottom:6px}
+.tool p{font-size:12px;color:var(--muted);line-height:1.5}
+.panel{
+ display:none;background:var(--card);
+ border:1px solid var(--border);padding:20px;
+ border-radius:20px;margin-top:22px;
+}
+.panel.active{display:block}
+.panel h2{margin-bottom:15px;font-size:20px}
+.back{
+ border:none;background:transparent;color:var(--accent);
+ font-weight:bold;margin-bottom:16px;cursor:pointer;
+}
+.upload{
+ border:2px dashed var(--accent);border-radius:16px;
+ padding:30px 15px;text-align:center;
+ cursor:pointer;line-height:1.8;
+}
+.upload input{display:none}
+#preview{
+ display:grid;grid-template-columns:repeat(2,1fr);
+ gap:10px;margin-top:15px;
+}
+#preview img{
+ width:100%;height:150px;object-fit:cover;
+ border-radius:12px;
+}
+.btn{
+ border:none;background:var(--accent);color:white;
+ padding:14px;border-radius:13px;font-weight:bold;
+ width:100%;margin-top:15px;cursor:pointer;
+}
+.btn:disabled{opacity:.5}
+.message{
+ margin-top:15px;font-size:14px;
+ color:var(--accent);text-align:center;
+}
+footer{
+ text-align:center;color:var(--muted);
+ font-size:12px;padding:25px 10px;
+}
+@media(min-width:600px){
+ .grid{grid-template-columns:repeat(3,1fr)}
+ .hero h1{font-size:32px}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+ <div class="logo">SMART <span>TOOLS</span></div>
+ <button class="theme" onclick="toggleTheme()">🌙 / ☀️</button>
+</header>
+
+<div class="container">
+
+<section class="hero">
+ <h1>All your tools, one place.</h1>
+ <p>Simple, useful and free tools for your everyday files and tasks.</p>
+</section>
+
+<h2 class="section-title">📁 File & PDF Tools</h2>
+
+<div class="grid">
+
+<div class="tool" onclick="openTool('imagePDF')">
+ <div class="tool-icon">🖼️</div>
+ <h3>Image to PDF</h3>
+ <p>Convert multiple images into one PDF.</p>
+</div>
+
+<div class="tool" onclick="comingSoon('Merge PDF')">
+ <div class="tool-icon">📚</div>
+ <h3>Merge PDF</h3>
+ <p>Combine multiple PDF files.</p>
+</div>
+
+<div class="tool" onclick="comingSoon('Split PDF')">
+ <div class="tool-icon">✂️</div>
+ <h3>Split PDF</h3>
+ <p>Separate pages from PDF files.</p>
+</div>
+
+<div class="tool" onclick="comingSoon('PDF to Images')">
+ <div class="tool-icon">📄</div>
+ <h3>PDF to Images</h3>
+ <p>Convert PDF pages into images.</p>
+</div>
+
+<div class="tool" onclick="comingSoon('Compress PDF')">
+ <div class="tool-icon">🗜️</div>
+ <h3>Compress PDF</h3>
+ <p>Reduce PDF file size.</p>
+</div>
+
+<div class="tool" onclick="comingSoon('Rotate PDF')">
+ <div class="tool-icon">🔄</div>
+ <h3>Rotate PDF</h3>
+ <p>Rotate PDF pages.</p>
+</div>
+
+</div>
+
+<h2 class="section-title">🖌️ Image Tools</h2>
+
+<div class="grid">
+
+<div class="tool" onclick="comingSoon('Image Compressor')">
+ <div class="tool-icon">📉</div>
+ <h3>Image Compressor</h3>
+ <p>Reduce image file size.</p>
+</div>
+
+<div class="tool" onclick="comingSoon('Image Resizer')">
+ <div class="tool-icon">📐</div>
+ <h3>Image Resizer</h3>
+ <p>Resize your images.</p>
+</div>
+
+<div class="tool" onclick="comingSoon('Image Converter')">
+ <div class="tool-icon">🔃</div>
+ <h3>Image Converter</h3>
+ <p>Convert JPG, PNG and WEBP.</p>
+</div>
+
+</div>
+
+<h2 class="section-title">⚡ Quick Utilities</h2>
+
+<div class="grid">
+
+<div class="tool" onclick="comingSoon('QR Scanner')">
+ <div class="tool-icon">📷</div>
+ <h3>QR Scanner</h3>
+ <p>Scan QR codes.</p>
+</div>
+
+<div class="tool" onclick="comingSoon('QR Generator')">
+ <div class="tool-icon">🔳</div>
+ <h3>QR Generator</h3>
+ <p>Create QR codes.</p>
+</div>
+
+<div class="tool" onclick="comingSoon('Calculator')">
+ <div class="tool-icon">🧮</div>
+ <h3>Calculator</h3>
+ <p>Quick calculations.</p>
+</div>
+
+<div class="tool" onclick="comingSoon('Unit Converter')">
+ <div class="tool-icon">📏</div>
+ <h3>Unit Converter</h3>
+ <p>Convert different units.</p>
+</div>
+
+<div class="tool" onclick="comingSoon('Stopwatch')">
+ <div class="tool-icon">⏱️</div>
+ <h3>Stopwatch</h3>
+ <p>Track elapsed time.</p>
+</div>
+
+</div>
+
+<!-- Image to PDF Panel -->
+
+<div class="panel" id="imagePDF">
+<button class="back" onclick="closePanel()">← Back to Home</button>
+<h2>🖼️ Image to PDF</h2>
+
+<label class="upload">
+ <span>📁</span><br>
+ <strong>Select Images</strong><br>
+ <small>Select multiple JPG, PNG or WEBP images</small>
+ <input type="file" id="imageInput" accept="image/*" multiple>
+</label>
+
+<div id="preview"></div>
+
+<button class="btn" id="makePDF" disabled onclick="createPDF()">
+ Create PDF
+</button>
+
+<div class="message" id="pdfMessage"></div>
+</div>
+
+</div>
+
+<footer>
+ Smart Tools • Free Utility App
+</footer>
+
+<script>
+
+function toggleTheme(){
+ document.body.classList.toggle("dark");
+}
+
+function openTool(id){
+ document.querySelectorAll(".panel").forEach(p=>p.classList.remove("active"));
+ const panel=document.getElementById(id);
+ panel.classList.add("active");
+ panel.scrollIntoView({behavior:"smooth"});
+}
+
+function closePanel(){
+ document.querySelectorAll(".panel").forEach(p=>p.classList.remove("active"));
+ window.scrollTo({top:0,behavior:"smooth"});
+}
+
+function comingSoon(name){
+ alert(name+" is coming soon!");
+}
+
+const input=document.getElementById("imageInput");
+const preview=document.getElementById("preview");
+const makePDF=document.getElementById("makePDF");
+const message=document.getElementById("pdfMessage");
+
+let selectedImages=[];
+
+input.addEventListener("change",function(){
+ selectedImages=Array.from(input.files);
+ preview.innerHTML="";
+ message.textContent="";
+
+ selectedImages.forEach(file=>{
+  const img=document.createElement("img");
+  img.src=URL.createObjectURL(file);
+  preview.appendChild(img);
+ });
+
+ makePDF.disabled=selectedImages.length===0;
+});
+
+async function createPDF(){
+
+ if(selectedImages.length===0)return;
+
+ if(!window.jspdf){
+  message.textContent="PDF library failed to load. Check internet connection.";
+  return;
+ }
+
+ makePDF.disabled=true;
+ message.textContent="Creating PDF...";
+
+ try{
+
+  const {jsPDF}=window.jspdf;
+  let pdf=null;
+
+  for(let i=0;i<selectedImages.length;i++){
+
+   const file=selectedImages[i];
+   const data=await readImage(file);
+
+   const img=new Image();
+   img.src=data;
+
+   await new Promise((resolve,reject)=>{
+    img.onload=resolve;
+    img.onerror=reject;
+   });
+
+   const orientation=img.width>img.height?"landscape":"portrait";
+
+   if(!pdf){
+    pdf=new jsPDF({
+     orientation:orientation,
+     unit:"mm",
+     format:"a4"
+    });
+   }else{
+    pdf.addPage("a4",orientation);
+   }
+
+   const pageWidth=pdf.internal.pageSize.getWidth();
+   const pageHeight=pdf.internal.pageSize.getHeight();
+
+   const margin=10;
+   const maxWidth=pageWidth-margin*2;
+   const maxHeight=pageHeight-margin*2;
+
+   const ratio=Math.min(maxWidth/img.width,maxHeight/img.height);
+
+   const width=img.width*ratio;
+   const height=img.height*ratio;
+
+   pdf.addImage(
+    data,
+    "JPEG",
+    (pageWidth-width)/2,
+    (pageHeight-height)/2,
+    width,
+    height
+   );
+
+  }
+
+  pdf.save("Smart-Tools.pdf");
+  message.textContent="PDF created successfully!";
+
+ }catch(error){
+  message.textContent="Could not create PDF. Try another image.";
+ }finally{
+  makePDF.disabled=selectedImages.length===0;
+ }
+
+}
+
+function readImage(file){
+ return new Promise((resolve,reject)=>{
+  const reader=new FileReader();
+  reader.onload=()=>resolve(reader.result);
+  reader.onerror=reject;
+  reader.readAsDataURL(file);
+ });
+
+}
+
+</script>
+</body>
+</html>
