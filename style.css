@@ -462,3 +462,7 @@ footer{
   }
 
 }
+
+.theme-switch .sun{
+  transform:translateX(-3px);
+}
