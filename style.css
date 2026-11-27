@@ -45,3 +45,49 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:25px 10px}
 .qr-result{display:flex;justify-content:center;align-items:center;margin-top:20px;min-height:0}
 .qr-result canvas,.qr-result img{max-width:100%;height:auto;background:white;padding:10px;border-radius:12px}
 @media(min-width:600px){.grid{grid-template-columns:repeat(3,1fr)}.hero h1{font-size:32px}#preview{grid-template-columns:repeat(3,1fr)}}
+
+/* THEME SLIDER */
+
+.theme-switch {
+  width: 72px;
+  height: 36px;
+  background: #e5e7eb;
+  border-radius: 50px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 9px;
+  cursor: pointer;
+  box-sizing: border-box;
+  transition: background 0.3s ease;
+}
+
+.theme-switch .sun,
+.theme-switch .moon {
+  font-size: 17px;
+  z-index: 2;
+  user-select: none;
+}
+
+.switch-thumb {
+  position: absolute;
+  left: 3px;
+  top: 3px;
+  width: 30px;
+  height: 30px;
+  background: white;
+  border-radius: 50%;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  transition: transform 0.35s ease;
+}
+
+/* DARK MODE */
+
+body.dark .theme-switch {
+  background: #374151;
+}
+
+body.dark .switch-thumb {
+  transform: translateX(36px);
+}
